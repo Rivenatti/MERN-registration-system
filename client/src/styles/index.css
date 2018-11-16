@@ -1,0 +1,21 @@
+/* --------------- BROWSER RESET --------------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  height: 100%;
+  background-color: #262b30;
+}
+
+.App {
+  min-height: calc(100vh - 2.5rem);
+}
