@@ -1,77 +1,84 @@
 import React, { Component } from "react";
-import "../../styles/form.scss";
+
+import { withStyles } from "@material-ui/core/styles";
+import { Grid, Paper, Typography, Button, TextField } from "@material-ui/core/";
+import AccountBoxIcon from "@material-ui/icons/AccountBox";
+
+const styles = {
+  paper: {
+    marginTop: 20,
+    marginBottom: 20,
+    minHeight: "45rem",
+    textAlign: "center",
+    backgroundColor: "#ddd"
+  },
+
+  icon: {
+    fontSize: "12rem"
+  },
+
+  button: {
+    marginTop: 20,
+    width: "50%",
+    height: "3.5rem",
+    fontSize: "1.5rem"
+  }
+};
 
 class SignUp extends Component {
   render() {
+    const { classes } = this.props;
     return (
-      <div className="form">
-        <h2>SIGN UP</h2>
-        <form onSubmit={this.onSubmit}>
-          {/* USERNAME INPUT ROW */}
-          <div className="form__input">
-            <input
-              type="text"
-              name="username"
-              required
-              onChange={this.onChange}
-              autoComplete="off"
-            />
-            <label htmlFor="username">Username</label>
-            <span className="error" />
-          </div>
+      <Grid
+        container
+        justify="center"
+        style={{ height: "100%" }}
+        alignItems="center"
+      >
+        <Grid item xs={11} sm={6} md={4} lg={3}>
+          <Paper className={classes.paper}>
+            <AccountBoxIcon color="primary" className={classes.icon} />
 
-          {/* EMAIL INPUT ROW */}
-          <div className="form__input mt-20">
-            <input
-              type="text"
-              name="email"
-              required
-              onChange={this.onChange}
-              autoComplete="off"
-            />
-            <label htmlFor="email">Email</label>
-            <span className="error" />
-          </div>
-          {/* PASSWORD INPUT ROW */}
-          <div className="form__input mt-20">
-            <input
-              type="password"
-              name="password"
-              required
-              onChange={this.onChange}
-              autoComplete="off"
-            />
-            <label htmlFor="password">Password</label>
-            <span className="error" />
-          </div>
-          {/* CONFIRM PASSWORD INPUT ROW */}
-          <div className="form__input mt-20">
-            <input
-              type="password"
-              name="confirmPassword"
-              required
-              onChange={this.onChange}
-              autoComplete="off"
-            />
-            <label htmlFor="confirmPassword">Confirm password</label>
-            <span className="error" />
-          </div>
-          {/* AGREEMENT INPUT ROW */}
-          <div className="form__input__agreement">
-            <input type="checkbox" name="agreement" id="agreement" required />
-            <label htmlFor="agreement">
-              I agree all statements in <span>terms of service</span>
-            </label>
-          </div>
-          {/* SUBMIT */}
-          <input type="submit" value="JOIN" />
-        </form>
-        <div className="registered">
-          <a href="/">Already registered</a>
-        </div>
-      </div>
+            <Typography
+              variant="title"
+              align="center"
+              gutterBottom
+              style={{ fontSize: "2.5rem" }}
+            >
+              SIGN UP
+            </Typography>
+
+            <form style={{ width: "90%", margin: "0 auto" }}>
+              <TextField label="Name" margin="normal" fullWidth required />
+              <TextField
+                label="Organization"
+                margin="normal"
+                fullWidth
+                required
+              />
+              <TextField label="Email" margin="normal" fullWidth required />
+              <TextField label="Password" margin="normal" fullWidth required />
+              <TextField
+                label="Confirm password"
+                margin="normal"
+                fullWidth
+                required
+              />
+
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.button}
+              >
+                Sign Up
+              </Button>
+            </form>
+          </Paper>
+        </Grid>
+      </Grid>
     );
   }
 }
 
-export default SignUp;
+export default withStyles(styles)(SignUp);

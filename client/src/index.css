@@ -7,15 +7,11 @@
   vertical-align: baseline;
 }
 
-html {
-  font-size: 10px;
-}
-
 body {
   height: 100%;
   background-color: #262b30;
 }
 
 .App {
-  min-height: calc(100vh - 2.5rem);
+  min-height: calc(100vh - 64px);
 }
