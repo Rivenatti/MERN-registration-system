@@ -29,9 +29,11 @@ const styles = {
   },
 
   button: {
+    marginTop: 20,
     width: "50%",
-    height: "4rem",
-    fontSize: "1.5rem"
+    height: "3rem",
+    fontSize: "1.5rem",
+    marginBottom: 20
   }
 };
 
@@ -60,8 +62,14 @@ class SignUp extends Component {
               gutterBottom
             >
               This is a simple registration system. You can test it by signing
-              in as user: 'tester' and password 'pass123' or by signing up. You
-              can always delete your account on the profile page.
+              in as:
+              {<br />}
+              {<br />} user: tester
+              {<br />} password: pass123
+              {<br />}
+              {<br />}
+              Or by signing up. You can always delete your account on the
+              profile page.
             </Typography>
 
             <Button

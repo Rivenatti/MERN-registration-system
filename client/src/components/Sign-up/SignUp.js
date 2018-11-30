@@ -22,6 +22,13 @@ const styles = {
     width: "50%",
     height: "3.5rem",
     fontSize: "1.5rem"
+  },
+
+  signin: {
+    marginTop: 20,
+    width: "60%",
+    fontSize: "0.7rem",
+    marginBottom: 20
   }
 };
 
@@ -74,6 +81,13 @@ class SignUp extends Component {
                 Sign Up
               </Button>
             </form>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.signin}
+            >
+              Already registered
+            </Button>
           </Paper>
         </Grid>
       </Grid>

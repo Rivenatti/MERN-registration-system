@@ -22,6 +22,13 @@ const styles = {
     width: "50%",
     height: "3.5rem",
     fontSize: "1.5rem"
+  },
+
+  create: {
+    marginTop: 20,
+    width: "60%",
+    fontSize: "0.7rem",
+    marginBottom: 20
   }
 };
 
@@ -61,6 +68,13 @@ class SignIn extends Component {
                 Sign In
               </Button>
             </form>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.create}
+            >
+              Create an account
+            </Button>
           </Paper>
         </Grid>
       </Grid>
