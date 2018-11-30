@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import { withStyles } from "@material-ui/core/styles";
 import { Grid, Paper, Typography, Button, TextField } from "@material-ui/core/";
@@ -6,9 +7,8 @@ import AccountBoxIcon from "@material-ui/icons/AccountBox";
 
 const styles = {
   paper: {
-    marginTop: 20,
-    marginBottom: 20,
-    minHeight: "33rem",
+    marginTop: "2rem",
+    marginBottom: "2rem",
     textAlign: "center",
     backgroundColor: "#ddd"
   },
@@ -39,7 +39,7 @@ class SignIn extends Component {
       <Grid
         container
         justify="center"
-        style={{ height: "100%" }}
+        style={{ minHeight: "calc(100vh - 64px - 28px)" }}
         alignItems="center"
       >
         <Grid item xs={11} sm={6} md={4} lg={3}>
@@ -68,13 +68,15 @@ class SignIn extends Component {
                 Sign In
               </Button>
             </form>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.create}
-            >
-              Create an account
-            </Button>
+            <Link to="/signup">
+              <Button
+                variant="contained"
+                color="secondary"
+                className={classes.create}
+              >
+                Create an account
+              </Button>
+            </Link>
           </Paper>
         </Grid>
       </Grid>

@@ -37,7 +37,7 @@ const styles = {
   }
 };
 
-class SignUp extends Component {
+class Profile extends Component {
   render() {
     const { classes } = this.props;
     return (
@@ -50,14 +50,13 @@ class SignUp extends Component {
         <Grid item xs={11} sm={6} md={4} lg={3}>
           <Paper className={classes.paper}>
             <AccountBoxIcon color="primary" className={classes.icon} />
-
             <Typography
               variant="title"
               align="center"
               className={classes.title}
               gutterBottom
             >
-              Welcome!
+              Profile
             </Typography>
 
             <Typography
@@ -66,24 +65,22 @@ class SignUp extends Component {
               className={classes.bodyText}
               gutterBottom
             >
-              This is a simple registration system. You can test it by signing
-              in as:
+              Your details:
               {<br />}
               {<br />} user: tester
               {<br />} password: pass123
               {<br />}
               {<br />}
-              Or by signing up. You can always delete your account on the
-              profile page.
+              You can always delete your account.
             </Typography>
 
-            <Link to="/signin">
+            <Link to="/delete/:id">
               <Button
                 variant="contained"
-                color="primary"
+                color="secondary"
                 className={classes.button}
               >
-                Sign In
+                Delete account
               </Button>
             </Link>
           </Paper>
@@ -93,4 +90,4 @@ class SignUp extends Component {
   }
 }
 
-export default withStyles(styles)(SignUp);
+export default withStyles(styles)(Profile);
