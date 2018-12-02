@@ -1,10 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { INPUT_CHANGED } from "../../actions/actions";
+import Api from "../../api/signup";
+
 import { withStyles } from "@material-ui/core/styles";
 import { Grid, Paper, Typography, Button, TextField } from "@material-ui/core/";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 
 const styles = {
+  container: {
+    minHeight: "calc(100vh - 64px - 28px)"
+  },
   paper: {
     marginTop: "2rem",
     marginBottom: "2rem",
@@ -14,6 +21,11 @@ const styles = {
 
   icon: {
     fontSize: "12rem"
+  },
+
+  form: {
+    width: "90%",
+    margin: "0 auto"
   },
 
   button: {
@@ -28,6 +40,10 @@ const styles = {
     width: "60%",
     fontSize: "0.7rem",
     marginBottom: 20
+  },
+
+  link: {
+    textDecoration: "none"
   }
 };
 
@@ -38,7 +54,7 @@ class SignUp extends Component {
       <Grid
         container
         justify="center"
-        style={{ minHeight: "calc(100vh - 64px - 28px)" }}
+        className={classes.container}
         alignItems="center"
       >
         <Grid item xs={11} sm={6} md={4} lg={3}>
@@ -54,18 +70,60 @@ class SignUp extends Component {
               SIGN UP
             </Typography>
 
-            <form style={{ width: "90%", margin: "0 auto" }}>
-              <TextField label="Name" margin="normal" fullWidth required />
+            <form
+              className={classes.form}
+              onSubmit={e =>
+                this.props.handleSubmit(
+                  e,
+                  this.props.username,
+                  this.props.organization,
+                  this.props.email,
+                  this.props.password
+                )
+              }
+            >
               <TextField
-                label="Organization"
+                label="Username"
+                name="username"
+                value={this.props.name}
+                onChange={this.props.inputChanged}
                 margin="normal"
                 fullWidth
                 required
               />
-              <TextField label="Email" margin="normal" fullWidth required />
-              <TextField label="Password" margin="normal" fullWidth required />
+              <TextField
+                label="Organization"
+                name="organization"
+                value={this.props.organization}
+                onChange={this.props.inputChanged}
+                margin="normal"
+                fullWidth
+                required
+              />
+              <TextField
+                label="Email"
+                name="email"
+                value={this.props.email}
+                onChange={this.props.inputChanged}
+                margin="normal"
+                fullWidth
+                required
+              />
+              <TextField
+                label="Password"
+                name="password"
+                value={this.props.password}
+                onChange={this.props.inputChanged}
+                type="password"
+                margin="normal"
+                fullWidth
+                required
+              />
               <TextField
                 label="Confirm password"
+                name="confirmPassword"
+                onChange={this.props.inputChanged}
+                type="password"
                 margin="normal"
                 fullWidth
                 required
@@ -80,7 +138,7 @@ class SignUp extends Component {
                 Sign Up
               </Button>
             </form>
-            <Link to="/signin">
+            <Link to="/signin" className={classes.link}>
               <Button
                 variant="contained"
                 color="secondary"
@@ -96,4 +154,35 @@ class SignUp extends Component {
   }
 }
 
-export default withStyles(styles)(SignUp);
+const mapStateToProps = state => {
+  return {
+    username: state.username,
+    organization: state.organization,
+    email: state.email,
+    password: state.password
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    inputChanged: e => {
+      const action = {
+        type: INPUT_CHANGED,
+        name: e.target.name,
+        value: e.target.value
+      };
+      dispatch(action);
+    },
+    handleSubmit: (e, _username, _organization, _email, _password) => {
+      e.preventDefault();
+      Api.signUp(dispatch, _username, _organization, _email, _password);
+    }
+  };
+};
+
+export default withStyles(styles)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SignUp)
+);

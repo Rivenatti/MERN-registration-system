@@ -33,8 +33,10 @@ userLogin.post("/signin", (req, res, next) => {
             // If success, assign token
             const token = jwt.sign(
               {
-                email: user.email,
-                userId: user._id
+                userId: user._id,
+                username: user.username,
+                organization: user.organization,
+                email: user.email
               },
               secret.KEY,
               {

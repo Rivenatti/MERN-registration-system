@@ -1,4 +1,4 @@
-import { CURRENT_USER } from "../actions/actions";
+import { INPUT_CHANGED, SIGNED_IN } from "../actions/actions";
 
 const INITIAL_STATE = {
   username: "",
@@ -6,11 +6,23 @@ const INITIAL_STATE = {
   organization: "",
   password: "",
   confirmPassword: "",
-  errors: {}
+  errors: {},
+  token: false
 };
 
 const rootReducer = (state = INITIAL_STATE, action) => {
-  return state;
+  switch (action.type) {
+    case INPUT_CHANGED: {
+      return Object.assign({}, state, { [action.name]: action.value });
+    }
+    case SIGNED_IN: {
+      console.log(action.data);
+      break;
+    }
+    default: {
+      return state;
+    }
+  }
 };
 
 export default rootReducer;

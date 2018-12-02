@@ -34,6 +34,10 @@ const styles = {
     height: "3rem",
     fontSize: "1.5rem",
     marginBottom: 20
+  },
+
+  link: {
+    textDecoration: "none"
   }
 };
 
@@ -77,7 +81,7 @@ class SignUp extends Component {
               profile page.
             </Typography>
 
-            <Link to="/signin">
+            <Link to="/signin" className={classes.link}>
               <Button
                 variant="contained"
                 color="primary"

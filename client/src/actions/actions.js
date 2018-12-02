@@ -1,1 +1,2 @@
-export const CURRENT_USER = "CURRENT_USER";
+export const INPUT_CHANGED = "INPUT_CHAG";
+export const SIGNED_IN = "SIGNED_IN";

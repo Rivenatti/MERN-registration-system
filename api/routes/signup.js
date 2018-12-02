@@ -29,7 +29,7 @@ createUser.post("/signup", (req, res) => {
     if (user)
       return res
         .status(409)
-        .json({ email: "Given email already exists in the database." });
+        .json({ error: "Given email already exists in the database." });
     else {
       // Create new user instance with given schema
       const newUser = new User({

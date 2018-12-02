@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import {
   AppBar,
@@ -16,6 +17,11 @@ const styles = {
   },
   grow: {
     flexGrow: 1
+  },
+
+  link: {
+    color: "inherit",
+    textDecoration: "none"
   }
 };
 
@@ -42,7 +48,9 @@ class Navbar extends Component {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h4" color="inherit" className={classes.grow}>
-              Navbar
+              <Link to="/" className={classes.link}>
+                Navbar
+              </Link>
             </Typography>
 
             {auth && (
