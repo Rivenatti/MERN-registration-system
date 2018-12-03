@@ -8,6 +8,8 @@ import SignIn from "./components/Sign-in/SignIn";
 import Profile from "./components/Profile/Profile";
 import NotFound from "./components/NotFound/NotFound";
 import Footer from "./components/Footer/footer";
+import SignOut from "./components/Sign-out/SignOut";
+import Delete from "./components/Delete/Delete";
 
 class App extends Component {
   render() {
@@ -21,6 +23,8 @@ class App extends Component {
               <Route exact path="/signup" component={SignUp} />
               <Route exact path="/signin" component={SignIn} />
               <Route exact path="/profile" component={Profile} />
+              <Route exact path="/signout" component={SignOut} />
+              <Route exact path="/delete" component={Delete} />
               <Route component={NotFound} />
             </Switch>
           </div>

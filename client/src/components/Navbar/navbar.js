@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { SIGNED_OUT } from "../../actions/actions";
+import { connect } from "react-redux";
+
 import { withStyles } from "@material-ui/core/styles";
 import {
   AppBar,
@@ -27,7 +30,6 @@ const styles = {
 
 class Navbar extends Component {
   state = {
-    auth: true,
     anchorEl: null
   };
 
@@ -41,7 +43,7 @@ class Navbar extends Component {
 
   render() {
     const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
+    const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
     return (
       <div className={classes.root}>
@@ -49,11 +51,12 @@ class Navbar extends Component {
           <Toolbar>
             <Typography variant="h4" color="inherit" className={classes.grow}>
               <Link to="/" className={classes.link}>
-                Navbar
+                App
               </Link>
             </Typography>
 
-            {auth && (
+            {this.props.token && (
+              // CHECK IF USER HAS TOKEN
               <div>
                 <IconButton
                   aria-owns={open ? "menu-appbar" : undefined}
@@ -77,8 +80,22 @@ class Navbar extends Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+                  {/* PROFILE LINK */}
+                  <MenuItem onClick={this.handleClose}>
+                    <Link to="/profile" className={classes.link}>
+                      Profile
+                    </Link>
+                  </MenuItem>
+                  {/* SIGN OUT LINK */}
+                  <MenuItem onClick={this.handleClose}>
+                    <Link
+                      to="/signout"
+                      className={classes.link}
+                      onClick={this.props.onSubmit}
+                    >
+                      Sign out
+                    </Link>
+                  </MenuItem>
                 </Menu>
               </div>
             )}
@@ -89,4 +106,21 @@ class Navbar extends Component {
   }
 }
 
-export default withStyles(styles)(Navbar);
+const mapStateToProps = state => {
+  return {
+    token: state.token
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSubmit: e => {
+      dispatch({ type: SIGNED_OUT });
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Navbar));

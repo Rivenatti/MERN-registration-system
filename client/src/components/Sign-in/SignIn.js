@@ -76,14 +76,15 @@ class SignIn extends Component {
               onSubmit={e =>
                 this.props.handleSubmit(
                   e,
-                  this.props.email,
-                  this.props.password
+                  this.props.emailInput,
+                  this.props.passwordInput,
+                  this.props.history
                 )
               }
             >
               <TextField
                 label="Email"
-                name="email"
+                name="emailInput"
                 value={this.props.email}
                 onChange={this.props.inputChanged}
                 margin="normal"
@@ -92,7 +93,7 @@ class SignIn extends Component {
               />
               <TextField
                 label="Password"
-                name="password"
+                name="passwordInput"
                 value={this.props.password}
                 onChange={this.props.inputChanged}
                 type="password"
@@ -128,8 +129,8 @@ class SignIn extends Component {
 
 const mapStateToProps = state => {
   return {
-    email: state.email,
-    password: state.password
+    emailInput: state.emailInput,
+    passwordInput: state.passwordInput
   };
 };
 
@@ -143,16 +144,14 @@ const mapDispatchToProps = dispatch => {
       };
       dispatch(action);
     },
-    handleSubmit: (e, _email, _password) => {
+    handleSubmit: (e, _email, _password, _history) => {
       e.preventDefault();
-      Api.signIn(dispatch, _email, _password);
+      Api.signIn(dispatch, _email, _password, _history);
     }
   };
 };
 
-export default withStyles(styles)(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(SignIn)
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(SignIn));

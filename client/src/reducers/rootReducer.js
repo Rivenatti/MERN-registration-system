@@ -1,11 +1,16 @@
-import { INPUT_CHANGED, SIGNED_IN } from "../actions/actions";
+import {
+  INPUT_CHANGED,
+  SIGNED_IN,
+  SIGNED_OUT,
+  USER_DELETED
+} from "../actions/actions";
 
 const INITIAL_STATE = {
-  username: "",
-  email: "",
-  organization: "",
-  password: "",
-  confirmPassword: "",
+  usernameInput: "",
+  emailInput: "",
+  organizationInput: "",
+  passwordInput: "",
+  confirmPasswordInput: "",
   errors: {},
   token: false
 };
@@ -16,8 +21,19 @@ const rootReducer = (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, { [action.name]: action.value });
     }
     case SIGNED_IN: {
-      console.log(action.data);
-      break;
+      return Object.assign({}, state, {
+        token: true
+      });
+    }
+    case SIGNED_OUT: {
+      return Object.assign({}, state, {
+        token: false
+      });
+    }
+    case USER_DELETED: {
+      return Object.assign({}, state, {
+        token: false
+      });
     }
     default: {
       return state;

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import { connect } from "react-redux";
+import Api from "../../api/delete";
 
 import { withStyles } from "@material-ui/core/styles";
 import { Grid, Paper, Typography, Button } from "@material-ui/core/";
@@ -38,6 +40,27 @@ const styles = {
 };
 
 class Profile extends Component {
+  state = {
+    userId: "",
+    username: "",
+    organization: "",
+    email: ""
+  };
+
+  // Set state with decoded JWT token data
+  componentWillMount = () => {
+    // Decode user information
+    const decoded = jwt_decode(localStorage.token);
+    const { userId, username, email, organization } = decoded;
+
+    this.setState({
+      userId,
+      username,
+      email,
+      organization
+    });
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -65,24 +88,25 @@ class Profile extends Component {
               className={classes.bodyText}
               gutterBottom
             >
-              Your details:
-              {<br />}
-              {<br />} user: tester
-              {<br />} password: pass123
-              {<br />}
-              {<br />}
-              You can always delete your account.
+              ID: {this.state.userId}
+              <br />
+              Username: {this.state.username}
+              <br />
+              Organization: {this.state.organization}
+              <br />
+              Email: {this.state.email}
             </Typography>
 
-            <Link to="/delete/:id">
-              <Button
-                variant="contained"
-                color="secondary"
-                className={classes.button}
-              >
-                Delete account
-              </Button>
-            </Link>
+            <Button
+              variant="contained"
+              color="secondary"
+              className={classes.button}
+              onClick={() =>
+                this.props.handleClick(this.state.userId, this.props.history)
+              }
+            >
+              Delete account
+            </Button>
           </Paper>
         </Grid>
       </Grid>
@@ -90,4 +114,17 @@ class Profile extends Component {
   }
 }
 
-export default withStyles(styles)(Profile);
+const mapStateToProps = state => {};
+
+const mapDispatchToProps = _dispatch => {
+  return {
+    handleClick: (_userId, _history) => {
+      Api.deleteUser(_dispatch, _userId, _history);
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Profile));

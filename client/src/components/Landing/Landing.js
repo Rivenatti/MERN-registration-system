@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 import { withStyles } from "@material-ui/core/styles";
 import { Grid, Paper, Typography, Button } from "@material-ui/core/";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
+
+//---------------- Material UI custom styles
 
 const styles = {
   paper: {
@@ -41,7 +44,9 @@ const styles = {
   }
 };
 
-class SignUp extends Component {
+//---------------- Class
+
+class Landing extends Component {
   render() {
     const { classes } = this.props;
     return (
@@ -52,9 +57,10 @@ class SignUp extends Component {
         alignItems="center"
       >
         <Grid item xs={11} sm={6} md={4} lg={3}>
+          {/* ---------------- Paper with data */}
+
           <Paper className={classes.paper}>
             <AccountBoxIcon color="primary" className={classes.icon} />
-
             <Typography
               variant="title"
               align="center"
@@ -63,7 +69,6 @@ class SignUp extends Component {
             >
               Welcome!
             </Typography>
-
             <Typography
               variant="body1"
               align="left"
@@ -81,15 +86,29 @@ class SignUp extends Component {
               profile page.
             </Typography>
 
-            <Link to="/signin" className={classes.link}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-              >
-                Sign In
-              </Button>
-            </Link>
+            {/* ---------------- Conditional button rendering, check if user has the token */}
+
+            {this.props.token ? (
+              <Link to="/profile" className={classes.link}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                >
+                  Profile
+                </Button>
+              </Link>
+            ) : (
+              <Link to="/signin" className={classes.link}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                >
+                  Sign In
+                </Button>
+              </Link>
+            )}
           </Paper>
         </Grid>
       </Grid>
@@ -97,4 +116,10 @@ class SignUp extends Component {
   }
 }
 
-export default withStyles(styles)(SignUp);
+const mapStateToProps = state => {
+  return {
+    token: state.token
+  };
+};
+
+export default connect(mapStateToProps)(withStyles(styles)(Landing));

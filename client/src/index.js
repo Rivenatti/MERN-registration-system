@@ -10,8 +10,8 @@ import rootReducer from "./reducers/rootReducer";
 import { SIGNED_IN } from "./actions/actions";
 
 import setAuthorizationHeader from "./utils/setAuthorizationHeader";
-import jwt_decode from "jwt-decode";
 
+// Create redux store
 const store = createStore(
   rootReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
@@ -22,11 +22,8 @@ if (localStorage.token) {
   // Set authorization header
   setAuthorizationHeader(localStorage.token);
 
-  // Decode user information
-  const decoded = jwt_decode(localStorage.token);
-
   // Set user information
-  // store.dispatch({ type: SIGNED_IN, data: decoded });
+  store.dispatch({ type: SIGNED_IN, token: localStorage.token });
 }
 
 ReactDOM.render(
