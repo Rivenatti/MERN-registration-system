@@ -5,7 +5,17 @@ import { INPUT_CHANGED } from "../../actions/actions";
 import Api from "../../api/signup";
 
 import { withStyles } from "@material-ui/core/styles";
-import { Grid, Paper, Typography, Button, TextField } from "@material-ui/core/";
+import {
+  Grid,
+  Paper,
+  Typography,
+  Button,
+  TextField,
+  FormControl,
+  InputLabel,
+  Input,
+  FormHelperText
+} from "@material-ui/core/";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 
 const styles = {
@@ -23,8 +33,12 @@ const styles = {
     fontSize: "12rem"
   },
 
+  resize: {
+    marginTop: 0
+  },
+
   form: {
-    width: "90%",
+    width: "95%",
     margin: "0 auto"
   },
 
@@ -79,56 +93,168 @@ class SignUp extends Component {
                   this.props.organizationInput,
                   this.props.emailInput,
                   this.props.passwordInput,
+
                   this.props.history
                 )
               }
             >
-              <TextField
-                label="Username"
-                name="usernameInput"
-                value={this.props.name}
-                onChange={this.props.inputChanged}
-                margin="normal"
-                fullWidth
-                required
-              />
-              <TextField
-                label="Organization"
-                name="organizationInput"
-                value={this.props.organization}
-                onChange={this.props.inputChanged}
-                margin="normal"
-                fullWidth
-                required
-              />
-              <TextField
-                label="Email"
-                name="emailInput"
-                value={this.props.email}
-                onChange={this.props.inputChanged}
-                margin="normal"
-                fullWidth
-                required
-              />
-              <TextField
-                label="Password"
-                name="passwordInput"
-                value={this.props.password}
-                onChange={this.props.inputChanged}
-                type="password"
-                margin="normal"
-                fullWidth
-                required
-              />
-              <TextField
-                label="Confirm password"
-                name="confirmPasswordInput"
-                onChange={this.props.inputChanged}
-                type="password"
-                margin="normal"
-                fullWidth
-                required
-              />
+              {/* USERNAME INPUT */}
+              {this.props.errors.username ? (
+                <FormControl
+                  error
+                  aria-describedby="component-error-text"
+                  fullWidth
+                >
+                  <InputLabel htmlFor="component-error">Name</InputLabel>
+                  <Input
+                    id="component-error"
+                    name="usernameInput"
+                    value={this.props.usernameInput}
+                    onChange={this.props.inputChanged}
+                  />
+                  <FormHelperText id="component-error-text">
+                    Username must be 3 to 16 alphanumeric characters long.
+                  </FormHelperText>
+                </FormControl>
+              ) : (
+                <TextField
+                  label="Username"
+                  name="usernameInput"
+                  value={this.props.usernameInput}
+                  onChange={this.props.inputChanged}
+                  margin="normal"
+                  fullWidth
+                  required
+                />
+              )}
+
+              {/* ORGANIZATION INPUT */}
+              {this.props.errors.organization ? (
+                <FormControl
+                  error
+                  aria-describedby="component-error-text"
+                  fullWidth
+                >
+                  <InputLabel htmlFor="component-error">
+                    Organization
+                  </InputLabel>
+                  <Input
+                    id="component-error"
+                    name="organizationInput"
+                    value={this.props.organizationInput}
+                    onChange={this.props.inputChanged}
+                  />
+                  <FormHelperText id="component-error-text">
+                    Organization must be 3 to 16 alphanumeric characters long.
+                  </FormHelperText>
+                </FormControl>
+              ) : (
+                <TextField
+                  label="Organization"
+                  name="organizationInput"
+                  value={this.props.organizationInput}
+                  onChange={this.props.inputChanged}
+                  margin="normal"
+                  fullWidth
+                  required
+                />
+              )}
+
+              {/* EMAIL INPUT */}
+              {this.props.errors.email ? (
+                <FormControl
+                  error
+                  aria-describedby="component-error-text"
+                  fullWidth
+                >
+                  <InputLabel htmlFor="component-error">Email</InputLabel>
+                  <Input
+                    id="component-error"
+                    name="emailInput"
+                    value={this.props.emailInput}
+                    onChange={this.props.inputChanged}
+                  />
+                  <FormHelperText id="component-error-text">
+                    Email format invalid.
+                  </FormHelperText>
+                </FormControl>
+              ) : (
+                <TextField
+                  label="Email"
+                  name="emailInput"
+                  value={this.props.emailInput}
+                  onChange={this.props.inputChanged}
+                  margin="normal"
+                  fullWidth
+                  required
+                />
+              )}
+
+              {/* PASSWORD INPUT */}
+              {this.props.errors.password ? (
+                <FormControl
+                  error
+                  aria-describedby="component-error-text"
+                  fullWidth
+                >
+                  <InputLabel htmlFor="component-error">Password</InputLabel>
+                  <Input
+                    id="component-error"
+                    name="passwordInput"
+                    type="password"
+                    value={this.props.passwordInput}
+                    onChange={this.props.inputChanged}
+                  />
+                  <FormHelperText id="component-error-text">
+                    Minimum four characters, at least one letter and one number
+                  </FormHelperText>
+                </FormControl>
+              ) : (
+                <TextField
+                  label="Password"
+                  name="passwordInput"
+                  value={this.props.passwordInput}
+                  onChange={this.props.inputChanged}
+                  type="password"
+                  margin="normal"
+                  fullWidth
+                  required
+                />
+              )}
+
+              {/* CONFIRM PASSWORD INPUT */}
+              {this.props.confirmPasswordInput !== this.props.passwordInput ? (
+                <FormControl
+                  error
+                  aria-describedby="component-error-text"
+                  fullWidth
+                >
+                  <InputLabel htmlFor="component-error">
+                    Confirm password
+                  </InputLabel>
+                  <Input
+                    id="component-error"
+                    name="confirmPasswordInput"
+                    type="password"
+                    value={this.props.confirmPasswordInput}
+                    onChange={this.props.inputChanged}
+                  />
+                  <FormHelperText id="component-error-text">
+                    Passwords must match.
+                  </FormHelperText>
+                </FormControl>
+              ) : (
+                <TextField
+                  label="Confirm password"
+                  name="confirmPasswordInput"
+                  value={this.props.confirmPasswordInput}
+                  onChange={this.props.inputChanged}
+                  type="password"
+                  margin="normal"
+                  fullWidth
+                  required
+                />
+              )}
 
               <Button
                 type="submit"
@@ -160,7 +286,9 @@ const mapStateToProps = state => {
     usernameInput: state.usernameInput,
     organizationInput: state.organizationInput,
     emailInput: state.emailInput,
-    passwordInput: state.passwordInput
+    passwordInput: state.passwordInput,
+    confirmPasswordInput: state.confirmPasswordInput,
+    errors: state.errors
   };
 };
 
@@ -189,6 +317,7 @@ const mapDispatchToProps = dispatch => {
         _organization,
         _email,
         _password,
+
         _history
       );
     }

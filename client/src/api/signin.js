@@ -8,7 +8,6 @@ const signIn = (dispatch, email, password, history) => {
       password: password
     })
     .then(res => {
-      console.log(dispatch);
       const action = {
         type: SIGNED_IN,
         token: res.data.token

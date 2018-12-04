@@ -44,20 +44,24 @@ class Profile extends Component {
     userId: "",
     username: "",
     organization: "",
-    email: ""
+    email: "",
+    created: ""
   };
 
   // Set state with decoded JWT token data
   componentWillMount = () => {
     // Decode user information
     const decoded = jwt_decode(localStorage.token);
+    console.log(decoded);
     const { userId, username, email, organization } = decoded;
+    const created = decoded.created.split("T")[0];
 
     this.setState({
       userId,
       username,
       email,
-      organization
+      organization,
+      created
     });
   };
 
@@ -95,6 +99,8 @@ class Profile extends Component {
               Organization: {this.state.organization}
               <br />
               Email: {this.state.email}
+              <br />
+              Created: {this.state.created}
             </Typography>
 
             <Button
@@ -114,7 +120,9 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = state => {};
+const mapStateToProps = state => {
+  return {};
+};
 
 const mapDispatchToProps = _dispatch => {
   return {

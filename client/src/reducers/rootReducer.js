@@ -2,7 +2,8 @@ import {
   INPUT_CHANGED,
   SIGNED_IN,
   SIGNED_OUT,
-  USER_DELETED
+  USER_DELETED,
+  ERROR
 } from "../actions/actions";
 
 const INITIAL_STATE = {
@@ -33,6 +34,16 @@ const rootReducer = (state = INITIAL_STATE, action) => {
     case USER_DELETED: {
       return Object.assign({}, state, {
         token: false
+      });
+    }
+    case ERROR: {
+      return Object.assign({}, state, {
+        usernameInput: "",
+        emailInput: "",
+        organizationInput: "",
+        passwordInput: "",
+        confirmPasswordInput: "",
+        errors: action.errors
       });
     }
     default: {

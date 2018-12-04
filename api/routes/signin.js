@@ -31,12 +31,14 @@ userLogin.post("/signin", (req, res, next) => {
             return res.status(401).json({ error: "Authentication failed." });
           else if (result) {
             // If success, assign token
+
             const token = jwt.sign(
               {
                 userId: user._id,
                 username: user.username,
                 organization: user.organization,
-                email: user.email
+                email: user.email,
+                created: user.created
               },
               secret.KEY,
               {
