@@ -5,6 +5,7 @@ import {
   USER_DELETED,
   ERROR
 } from "../actions/actions";
+import validate from "../components/Validation/Validation";
 
 const INITIAL_STATE = {
   usernameInput: "",
@@ -12,14 +13,14 @@ const INITIAL_STATE = {
   organizationInput: "",
   passwordInput: "",
   confirmPasswordInput: "",
-  errors: {},
+  errors: false,
   token: false
 };
 
 const rootReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case INPUT_CHANGED: {
-      return Object.assign({}, state, { [action.name]: action.value });
+      return validate(state, action.name, action.value);
     }
     case SIGNED_IN: {
       return Object.assign({}, state, {

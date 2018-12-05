@@ -10,7 +10,6 @@ import {
   Paper,
   Typography,
   Button,
-  TextField,
   FormControl,
   InputLabel,
   Input,
@@ -34,7 +33,7 @@ const styles = {
   },
 
   resize: {
-    marginTop: 0
+    marginTop: 10
   },
 
   form: {
@@ -63,6 +62,7 @@ const styles = {
 
 class SignUp extends Component {
   render() {
+    console.log(this.props);
     const { classes } = this.props;
     return (
       <Grid
@@ -93,170 +93,136 @@ class SignUp extends Component {
                   this.props.organizationInput,
                   this.props.emailInput,
                   this.props.passwordInput,
-
                   this.props.history
                 )
               }
             >
-              {/* USERNAME INPUT */}
-              {this.props.errors.username ? (
-                <FormControl
-                  error
-                  aria-describedby="component-error-text"
-                  fullWidth
-                >
-                  <InputLabel htmlFor="component-error">Name</InputLabel>
-                  <Input
-                    id="component-error"
-                    name="usernameInput"
-                    value={this.props.usernameInput}
-                    onChange={this.props.inputChanged}
-                  />
-                  <FormHelperText id="component-error-text">
-                    Username must be 3 to 16 alphanumeric characters long.
-                  </FormHelperText>
-                </FormControl>
-              ) : (
-                <TextField
-                  label="Username"
+              {/* -------------------- USERNAME INPUT --------------------*/}
+              <FormControl
+                error={
+                  this.props.errors.username || this.props.errors.usernameExists
+                }
+                aria-describedby="component-error-text"
+                fullWidth
+                className={classes.resize}
+              >
+                <InputLabel htmlFor="component-error">Username</InputLabel>
+                <Input
+                  id="component-error"
                   name="usernameInput"
                   value={this.props.usernameInput}
                   onChange={this.props.inputChanged}
-                  margin="normal"
-                  fullWidth
-                  required
                 />
-              )}
-
-              {/* ORGANIZATION INPUT */}
-              {this.props.errors.organization ? (
-                <FormControl
-                  error
-                  aria-describedby="component-error-text"
-                  fullWidth
-                >
-                  <InputLabel htmlFor="component-error">
-                    Organization
-                  </InputLabel>
-                  <Input
-                    id="component-error"
-                    name="organizationInput"
-                    value={this.props.organizationInput}
-                    onChange={this.props.inputChanged}
-                  />
-                  <FormHelperText id="component-error-text">
-                    Organization must be 3 to 16 alphanumeric characters long.
-                  </FormHelperText>
-                </FormControl>
-              ) : (
-                <TextField
-                  label="Organization"
+                <FormHelperText id="component-error-text">
+                  {this.props.errors.usernameExists
+                    ? "Given username already exists."
+                    : this.props.errors.username
+                    ? "Username must be 3 to 16 alphanumeric characters long."
+                    : null}
+                </FormHelperText>
+              </FormControl>
+              {/* -------------------- ORGANIZATION INPUT -------------------- */}
+              <FormControl
+                error={this.props.errors.organization}
+                aria-describedby="component-error-text"
+                fullWidth
+                className={classes.resize}
+              >
+                <InputLabel htmlFor="component-error">Organization</InputLabel>
+                <Input
+                  id="component-error"
                   name="organizationInput"
                   value={this.props.organizationInput}
                   onChange={this.props.inputChanged}
-                  margin="normal"
-                  fullWidth
-                  required
                 />
-              )}
-
-              {/* EMAIL INPUT */}
-              {this.props.errors.email ? (
-                <FormControl
-                  error
-                  aria-describedby="component-error-text"
-                  fullWidth
-                >
-                  <InputLabel htmlFor="component-error">Email</InputLabel>
-                  <Input
-                    id="component-error"
-                    name="emailInput"
-                    value={this.props.emailInput}
-                    onChange={this.props.inputChanged}
-                  />
-                  <FormHelperText id="component-error-text">
-                    Email format invalid.
-                  </FormHelperText>
-                </FormControl>
-              ) : (
-                <TextField
-                  label="Email"
+                <FormHelperText id="component-error-text">
+                  {this.props.errors.organization
+                    ? "Organization must be 3 to 16 alphanumeric characters long."
+                    : null}
+                </FormHelperText>
+              </FormControl>
+              {/* -------------------- EMAIL INPUT -------------------- */}
+              <FormControl
+                error={this.props.errors.email || this.props.errors.emailExists}
+                aria-describedby="component-error-text"
+                fullWidth
+                className={classes.resize}
+              >
+                <InputLabel htmlFor="component-error">Email</InputLabel>
+                <Input
+                  id="component-error"
                   name="emailInput"
                   value={this.props.emailInput}
                   onChange={this.props.inputChanged}
-                  margin="normal"
-                  fullWidth
-                  required
                 />
-              )}
-
-              {/* PASSWORD INPUT */}
-              {this.props.errors.password ? (
-                <FormControl
-                  error
-                  aria-describedby="component-error-text"
-                  fullWidth
-                >
-                  <InputLabel htmlFor="component-error">Password</InputLabel>
-                  <Input
-                    id="component-error"
-                    name="passwordInput"
-                    type="password"
-                    value={this.props.passwordInput}
-                    onChange={this.props.inputChanged}
-                  />
-                  <FormHelperText id="component-error-text">
-                    Minimum four characters, at least one letter and one number
-                  </FormHelperText>
-                </FormControl>
-              ) : (
-                <TextField
-                  label="Password"
+                <FormHelperText id="component-error-text">
+                  {this.props.errors.emailExists
+                    ? "Given email already exists."
+                    : this.props.errors.email
+                    ? "Invalid email format."
+                    : null}
+                </FormHelperText>
+              </FormControl>
+              {/* -------------------- PASSWORD INPUT -------------------- */}
+              <FormControl
+                error={this.props.errors.password}
+                aria-describedby="component-error-text"
+                fullWidth
+                className={classes.resize}
+              >
+                <InputLabel htmlFor="component-error">Password</InputLabel>
+                <Input
+                  id="component-error"
                   name="passwordInput"
+                  type="password"
                   value={this.props.passwordInput}
                   onChange={this.props.inputChanged}
-                  type="password"
-                  margin="normal"
-                  fullWidth
-                  required
                 />
-              )}
+                <FormHelperText id="component-error-text">
+                  {this.props.errors.password
+                    ? "Minimum four characters, at least one: upper case letter, lower case letter, digit and special character."
+                    : null}
+                </FormHelperText>
+              </FormControl>
+              {/* -------------------- CONFIRM PASSWORD INPUT -------------------- */}
 
-              {/* CONFIRM PASSWORD INPUT */}
-              {this.props.confirmPasswordInput !== this.props.passwordInput ? (
-                <FormControl
-                  error
-                  aria-describedby="component-error-text"
-                  fullWidth
-                >
-                  <InputLabel htmlFor="component-error">
-                    Confirm password
-                  </InputLabel>
-                  <Input
-                    id="component-error"
-                    name="confirmPasswordInput"
-                    type="password"
-                    value={this.props.confirmPasswordInput}
-                    onChange={this.props.inputChanged}
-                  />
-                  <FormHelperText id="component-error-text">
-                    Passwords must match.
-                  </FormHelperText>
-                </FormControl>
-              ) : (
-                <TextField
-                  label="Confirm password"
+              <FormControl
+                error={this.props.errors.confirmPassword}
+                aria-describedby="component-error-text"
+                fullWidth
+                className={classes.resize}
+              >
+                <InputLabel htmlFor="component-error">
+                  Confirm password
+                </InputLabel>
+                <Input
+                  id="component-error"
                   name="confirmPasswordInput"
+                  type="password"
                   value={this.props.confirmPasswordInput}
                   onChange={this.props.inputChanged}
-                  type="password"
-                  margin="normal"
-                  fullWidth
-                  required
                 />
-              )}
-
+                <FormHelperText id="component-error-text">
+                  {this.props.errors.confimPassword
+                    ? "Passwords must match."
+                    : null}
+                </FormHelperText>
+              </FormControl>
+              {/* -------------------- SIGN UP BUTTON -------------------- */}
               <Button
+                disabled={
+                  this.props.errors === false ||
+                  this.props.usernameInput === "" ||
+                  this.props.errors.username ||
+                  this.props.organizationInput === "" ||
+                  this.props.errors.organization ||
+                  this.props.emailInput === "" ||
+                  this.props.errors.email ||
+                  this.props.passwordInput === "" ||
+                  this.props.errors.password ||
+                  this.props.confirmPasswordInput === "" ||
+                  this.props.errors.confirmPassword
+                }
                 type="submit"
                 variant="contained"
                 color="primary"
@@ -317,7 +283,6 @@ const mapDispatchToProps = dispatch => {
         _organization,
         _email,
         _password,
-
         _history
       );
     }

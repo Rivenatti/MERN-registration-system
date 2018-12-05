@@ -29,16 +29,16 @@ createUser.post("/signup", (req, res) => {
     if (user)
       return res
         .status(409)
-        .json({ error: "Given email already exists in the database." });
+        .json({ emailExists: "Given email already exists in the database." });
     // If username exists send error
     else {
       User.findOne({
         username: req.body.username
       }).then(user => {
         if (user)
-          return res
-            .status(409)
-            .json({ error: "Given username already exists in the database." });
+          return res.status(409).json({
+            usernameExists: "Given username already exists in the database."
+          });
         // Create new user instance with given schema
         else {
           const newUser = new User({

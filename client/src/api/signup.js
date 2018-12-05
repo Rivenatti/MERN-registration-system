@@ -15,13 +15,22 @@ const signUp = (dispatch, username, organization, email, password, history) => {
     })
     .catch(error => {
       console.log(error.response.data);
-      // If one error
-      if (error.response.data.error) {
+      // If email exists in the db
+      if (error.response.data.emailExists) {
         dispatch({
           type: ERROR,
-          errors: { serverError: error.response.data.error }
+          errors: { emailExists: error.response.data.emailExists }
         });
       }
+
+      // If username exists in the db
+      if (error.response.data.usernameExists) {
+        dispatch({
+          type: ERROR,
+          errors: { usernameExists: error.response.data.usernameExists }
+        });
+      }
+
       // If multiple errors
       else {
         dispatch({ type: ERROR, errors: error.response.data.error.errors });
