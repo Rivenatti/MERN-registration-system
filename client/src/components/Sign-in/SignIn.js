@@ -1,3 +1,4 @@
+// React
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -8,6 +9,7 @@ import {
 } from "../../actions/actions";
 import Api from "../../api/signin";
 
+// Material UI
 import { withStyles } from "@material-ui/core/styles";
 import {
   Grid,
@@ -26,6 +28,8 @@ import {
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import ErrorIcon from "@material-ui/icons/Error";
 import CloseIcon from "@material-ui/icons/Close";
+
+//---------------- Material UI custom styles
 
 const styles = {
   container: {
@@ -203,7 +207,8 @@ class SignIn extends Component {
                 disabled={
                   this.props.errors === false ||
                   this.props.emailInput === "" ||
-                  this.props.errors.email
+                  this.props.errors.email ||
+                  this.props.passwordInput === ""
                 }
                 type="submit"
                 variant="contained"

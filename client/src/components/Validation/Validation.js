@@ -16,19 +16,20 @@ export default function validate(state, name, value) {
       if (usernameRegEx.test(value)) {
         return Object.assign({}, state, {
           [name]: value,
-          errors: { ...state.errors, username: false }
+          errors: { ...state.errors, username: false, usernameExists: false }
         });
       } else if (value === "") {
         return Object.assign({}, state, {
           [name]: value,
-          errors: { ...state.errors, username: false }
+          errors: { ...state.errors, username: false, usernameExists: false }
         });
       } else {
         return Object.assign({}, state, {
           [name]: value,
           errors: {
             ...state.errors,
-            username: true
+            username: true,
+            usernameExists: false
           }
         });
       }
@@ -60,19 +61,20 @@ export default function validate(state, name, value) {
       if (emailRegEx.test(value)) {
         return Object.assign({}, state, {
           [name]: value,
-          errors: { ...state.errors, email: false }
+          errors: { ...state.errors, email: false, emailExists: false }
         });
       } else if (value === "") {
         return Object.assign({}, state, {
           [name]: value,
-          errors: { ...state.errors, email: false }
+          errors: { ...state.errors, email: false, emailExists: false }
         });
       } else {
         return Object.assign({}, state, {
           [name]: value,
           errors: {
             ...state.errors,
-            email: true
+            email: true,
+            emailExists: false
           }
         });
       }

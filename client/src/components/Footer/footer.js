@@ -1,7 +1,10 @@
 import React from "react";
+
+// Material UI
 import { withStyles } from "@material-ui/core/styles";
 import { AppBar, Typography } from "@material-ui/core";
 
+//---------------- Material UI custom styles
 const styles = theme => ({
   footerToolbar: {
     width: "100%",

@@ -1,9 +1,11 @@
+// React
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { INPUT_CHANGED, ROUTE_CHANGED } from "../../actions/actions";
 import Api from "../../api/signup";
 
+// Material UI
 import { withStyles } from "@material-ui/core/styles";
 import {
   Grid,
@@ -16,6 +18,8 @@ import {
   FormHelperText
 } from "@material-ui/core/";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
+
+//---------------- Material UI custom styles
 
 const styles = {
   container: {
@@ -72,7 +76,10 @@ class SignUp extends Component {
       >
         <Grid item xs={11} sm={6} md={4} lg={3}>
           <Paper className={classes.paper}>
+            {/* Account icon */}
             <AccountBoxIcon color="primary" className={classes.icon} />
+
+            {/* Title */}
 
             <Typography
               variant="title"

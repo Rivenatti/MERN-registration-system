@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import "./Delete.scss";
 
+// Delete component which after 5 seconds removes token from the browser and redirects user to the home page
+
 class SignOut extends Component {
   //------------ SET TIME HERE ------------
   state = {

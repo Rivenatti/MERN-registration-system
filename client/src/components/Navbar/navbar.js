@@ -1,8 +1,10 @@
+// React
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { SIGNED_OUT } from "../../actions/actions";
 import { connect } from "react-redux";
 
+// Material UI
 import { withStyles } from "@material-ui/core/styles";
 import {
   AppBar,
@@ -13,6 +15,8 @@ import {
   MenuItem
 } from "@material-ui/core";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+
+//---------------- Material UI custom styles
 
 const styles = {
   root: {
@@ -29,6 +33,7 @@ const styles = {
 };
 
 class Navbar extends Component {
+  // Material UI conditional menu (after sign in)
   state = {
     anchorEl: null
   };

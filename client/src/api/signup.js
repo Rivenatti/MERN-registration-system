@@ -1,6 +1,7 @@
 import axios from "axios";
 import { ERROR } from "../actions/actions";
 
+// Sign up api request
 const signUp = (dispatch, username, organization, email, password, history) => {
   axios
     .post("/signup", {
@@ -31,7 +32,7 @@ const signUp = (dispatch, username, organization, email, password, history) => {
         });
       }
 
-      // If multiple errors
+      // If server side validation errors
       else {
         dispatch({ type: ERROR, errors: error.response.data.error.errors });
       }

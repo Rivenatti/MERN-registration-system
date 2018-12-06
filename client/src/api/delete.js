@@ -1,6 +1,7 @@
 import axios from "axios";
 import { USER_DELETED } from "../actions/actions";
 
+// Delete user api request
 const deleteUser = (dispatch, userId, history) => {
   axios
     .delete(`/delete/${userId}`)

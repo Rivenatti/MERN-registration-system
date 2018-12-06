@@ -1,7 +1,10 @@
+// React
 import React, { Component } from "react";
 import jwt_decode from "jwt-decode";
 import { connect } from "react-redux";
 import Api from "../../api/delete";
+
+// Material UI
 
 import { withStyles } from "@material-ui/core/styles";
 import {
@@ -14,6 +17,8 @@ import {
   DialogActions
 } from "@material-ui/core/";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
+
+//---------------- Material UI custom styles
 
 const styles = {
   paper: {
@@ -48,6 +53,7 @@ const styles = {
 };
 
 class Profile extends Component {
+  // Delete account confirmation dialog
   state = {
     dialogOpen: false
   };
@@ -69,12 +75,12 @@ class Profile extends Component {
     });
   };
 
+  // Delete account confirmation dialog
   handleClick = () => {
     this.setState({ dialogOpen: !this.state.dialogOpen });
   };
 
   render() {
-    console.log(this.state);
     const { classes } = this.props;
     return (
       <Grid
@@ -85,7 +91,12 @@ class Profile extends Component {
       >
         <Grid item xs={11} sm={6} md={4} lg={3}>
           <Paper className={classes.paper}>
+            {/* Account icon */}
+
             <AccountBoxIcon color="primary" className={classes.icon} />
+
+            {/* Account heading */}
+
             <Typography
               variant="title"
               align="center"
@@ -94,6 +105,8 @@ class Profile extends Component {
             >
               Profile
             </Typography>
+
+            {/* Account details */}
 
             <Typography
               variant="body1"
@@ -110,7 +123,12 @@ class Profile extends Component {
               Email: {this.state.email}
               <br />
               Created: {this.state.created}
+              <br />
+              <br />
+              To sign out click account icon in the top right corner.
             </Typography>
+
+            {/* Delete account icon */}
 
             <Button
               variant="contained"
@@ -124,10 +142,14 @@ class Profile extends Component {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
               >
+                {/* Dialog title */}
+
                 <DialogTitle id="alert-dialog-title">
                   {"Are you sure you want to delete this account?"}
                 </DialogTitle>
                 <DialogActions>
+                  {/* Agree button */}
+
                   <Button
                     onClick={() =>
                       this.props.handleClick(
@@ -140,6 +162,9 @@ class Profile extends Component {
                   >
                     Agree
                   </Button>
+
+                  {/* Disagree button */}
+
                   <Button onClick={this.handleClick} color="primary">
                     Disagree
                   </Button>
