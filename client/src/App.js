@@ -1,6 +1,14 @@
+// React
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
+import { connect } from "react-redux";
 
+// Routes
 import Navbar from "./components/Navbar/Navbar";
 import Landing from "./components/Landing/Landing";
 import SignUp from "./components/Sign-up/SignUp";
@@ -13,6 +21,22 @@ import Delete from "./components/Delete/Delete";
 
 class App extends Component {
   render() {
+    //---------------- Private route authentication (check if there is a token in the store)
+    const PrivateRoute = ({ component: Component, ...rest }) => {
+      return (
+        <Route
+          {...rest}
+          render={props => {
+            return this.props.token === true ? (
+              <Component {...props} />
+            ) : (
+              <Redirect to="/" />
+            );
+          }}
+        />
+      );
+    };
+
     return (
       <Router>
         <>
@@ -22,9 +46,9 @@ class App extends Component {
               <Route exact path="/" component={Landing} />
               <Route exact path="/signup" component={SignUp} />
               <Route exact path="/signin" component={SignIn} />
-              <Route exact path="/profile" component={Profile} />
-              <Route exact path="/signout" component={SignOut} />
-              <Route exact path="/delete" component={Delete} />
+              <PrivateRoute exact path="/profile" component={Profile} />
+              <PrivateRoute exact path="/signout" component={SignOut} />
+              <PrivateRoute exact path="/delete" component={Delete} />
               <Route component={NotFound} />
             </Switch>
           </div>
@@ -35,4 +59,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    token: state.token
+  };
+};
+
+export default connect(mapStateToProps)(App);
