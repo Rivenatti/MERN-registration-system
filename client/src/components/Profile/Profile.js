@@ -4,7 +4,15 @@ import { connect } from "react-redux";
 import Api from "../../api/delete";
 
 import { withStyles } from "@material-ui/core/styles";
-import { Grid, Paper, Typography, Button } from "@material-ui/core/";
+import {
+  Grid,
+  Paper,
+  Typography,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogActions
+} from "@material-ui/core/";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 
 const styles = {
@@ -41,7 +49,7 @@ const styles = {
 
 class Profile extends Component {
   state = {
-    open: false
+    dialogOpen: false
   };
 
   // Set state with decoded JWT token data
@@ -61,7 +69,12 @@ class Profile extends Component {
     });
   };
 
+  handleClick = () => {
+    this.setState({ dialogOpen: !this.state.dialogOpen });
+  };
+
   render() {
+    console.log(this.state);
     const { classes } = this.props;
     return (
       <Grid
@@ -103,15 +116,35 @@ class Profile extends Component {
               variant="contained"
               color="secondary"
               className={classes.button}
-              onClick={() => {
-                if (
-                  window.confirm(
-                    "Are you sure you want to delete this account?"
-                  )
-                )
-                  this.props.handleClick(this.state.userId, this.props.history);
-              }}
+              onClick={this.handleClick}
             >
+              <Dialog
+                open={this.state.dialogOpen}
+                onClose={this.handleClick}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  {"Are you sure you want to delete this account?"}
+                </DialogTitle>
+                <DialogActions>
+                  <Button
+                    onClick={() =>
+                      this.props.handleClick(
+                        this.state.userId,
+                        this.props.history
+                      )
+                    }
+                    color="primary"
+                    autoFocus
+                  >
+                    Agree
+                  </Button>
+                  <Button onClick={this.handleClick} color="primary">
+                    Disagree
+                  </Button>
+                </DialogActions>
+              </Dialog>
               Delete account
             </Button>
           </Paper>
