@@ -75,15 +75,23 @@ class Landing extends Component {
               className={classes.bodyText}
               gutterBottom
             >
-              This is a simple registration system. You can test it by signing
-              in as:
-              {<br />}
-              {<br />} user: tester
-              {<br />} password: pass123
+              This is a fully working registration system.
               {<br />}
               {<br />}
-              Or by signing up. You can always delete your account on the
-              profile page.
+              To test it, click 'sign in' button at the bottom, then in another
+              window click 'create an account'.
+              {<br />}
+              {<br />}
+              You can provide some fake data and later your account can be
+              deleted.
+              {<br />}
+              {<br />}
+              After successfull sign up, you can sign in with given email and
+              password.
+              {<br />}
+              {<br />}
+              On the profile page you can see details about your account and
+              delete the account.
             </Typography>
 
             {/* ---------------- Conditional button rendering, check if user has the token */}

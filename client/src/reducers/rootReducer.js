@@ -40,6 +40,8 @@ const rootReducer = (state = INITIAL_STATE, action) => {
     }
     case USER_DELETED: {
       return Object.assign({}, state, {
+        emailInput: "",
+        passwordInput: "",
         token: false,
         signInAuthFailed: false
       });
