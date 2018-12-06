@@ -41,11 +41,7 @@ const styles = {
 
 class Profile extends Component {
   state = {
-    userId: "",
-    username: "",
-    organization: "",
-    email: "",
-    created: ""
+    open: false
   };
 
   // Set state with decoded JWT token data
@@ -107,9 +103,14 @@ class Profile extends Component {
               variant="contained"
               color="secondary"
               className={classes.button}
-              onClick={() =>
-                this.props.handleClick(this.state.userId, this.props.history)
-              }
+              onClick={() => {
+                if (
+                  window.confirm(
+                    "Are you sure you want to delete this account?"
+                  )
+                )
+                  this.props.handleClick(this.state.userId, this.props.history);
+              }}
             >
               Delete account
             </Button>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { INPUT_CHANGED } from "../../actions/actions";
+import { INPUT_CHANGED, ROUTE_CHANGED } from "../../actions/actions";
 import Api from "../../api/signup";
 
 import { withStyles } from "@material-ui/core/styles";
@@ -62,7 +62,6 @@ const styles = {
 
 class SignUp extends Component {
   render() {
-    console.log(this.props);
     const { classes } = this.props;
     return (
       <Grid
@@ -105,6 +104,7 @@ class SignUp extends Component {
                 aria-describedby="component-error-text"
                 fullWidth
                 className={classes.resize}
+                required
               >
                 <InputLabel htmlFor="component-error">Username</InputLabel>
                 <Input
@@ -127,6 +127,7 @@ class SignUp extends Component {
                 aria-describedby="component-error-text"
                 fullWidth
                 className={classes.resize}
+                required
               >
                 <InputLabel htmlFor="component-error">Organization</InputLabel>
                 <Input
@@ -147,6 +148,7 @@ class SignUp extends Component {
                 aria-describedby="component-error-text"
                 fullWidth
                 className={classes.resize}
+                required
               >
                 <InputLabel htmlFor="component-error">Email</InputLabel>
                 <Input
@@ -169,6 +171,7 @@ class SignUp extends Component {
                 aria-describedby="component-error-text"
                 fullWidth
                 className={classes.resize}
+                required
               >
                 <InputLabel htmlFor="component-error">Password</InputLabel>
                 <Input
@@ -191,6 +194,7 @@ class SignUp extends Component {
                 aria-describedby="component-error-text"
                 fullWidth
                 className={classes.resize}
+                required
               >
                 <InputLabel htmlFor="component-error">
                   Confirm password
@@ -213,11 +217,13 @@ class SignUp extends Component {
                 disabled={
                   this.props.errors === false ||
                   this.props.usernameInput === "" ||
+                  this.props.errors.usernameExists ||
                   this.props.errors.username ||
                   this.props.organizationInput === "" ||
                   this.props.errors.organization ||
                   this.props.emailInput === "" ||
                   this.props.errors.email ||
+                  this.props.errors.emailExists ||
                   this.props.passwordInput === "" ||
                   this.props.errors.password ||
                   this.props.confirmPasswordInput === "" ||
@@ -231,7 +237,11 @@ class SignUp extends Component {
                 Sign Up
               </Button>
             </form>
-            <Link to="/signin" className={classes.link}>
+            <Link
+              to="/signin"
+              className={classes.link}
+              onClick={this.props.handleRouteChanged}
+            >
               <Button
                 variant="contained"
                 color="secondary"
@@ -285,6 +295,9 @@ const mapDispatchToProps = dispatch => {
         _password,
         _history
       );
+    },
+    handleRouteChanged: e => {
+      dispatch({ type: ROUTE_CHANGED });
     }
   };
 };

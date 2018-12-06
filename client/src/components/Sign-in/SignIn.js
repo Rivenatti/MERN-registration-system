@@ -1,12 +1,31 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { INPUT_CHANGED } from "../../actions/actions";
+import {
+  INPUT_CHANGED,
+  ROUTE_CHANGED,
+  SNACKBAR_CLOSE
+} from "../../actions/actions";
 import Api from "../../api/signin";
 
 import { withStyles } from "@material-ui/core/styles";
-import { Grid, Paper, Typography, Button, TextField } from "@material-ui/core/";
+import {
+  Grid,
+  Paper,
+  Typography,
+  Button,
+  TextField,
+  Snackbar,
+  SnackbarContent,
+  FormControl,
+  InputLabel,
+  Input,
+  FormHelperText,
+  IconButton
+} from "@material-ui/core/";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
+import ErrorIcon from "@material-ui/icons/Error";
+import CloseIcon from "@material-ui/icons/Close";
 
 const styles = {
   container: {
@@ -44,10 +63,30 @@ const styles = {
 
   link: {
     textDecoration: "none"
+  },
+
+  snakbar: {
+    backgroundColor: "#d32f2f"
+  },
+  message: {
+    display: "flex",
+    alignItems: "center"
+  },
+
+  errorIcon: {
+    marginRight: "1rem"
   }
 };
 
 class SignIn extends Component {
+  state = {
+    open: true
+  };
+
+  handleSnackbarClose = () => {
+    this.setState({ open: !this.state.open });
+  };
+
   render() {
     const { classes } = this.props;
 
@@ -60,7 +99,47 @@ class SignIn extends Component {
       >
         <Grid item xs={11} sm={6} md={4} lg={3}>
           <Paper className={classes.paper}>
+            {/* IF AUTHENTICATION FAILS, SHOW ALERT */}
+
+            {this.props.signInAuthFailed === false ? null : (
+              <Snackbar
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "center"
+                }}
+                open={this.state.open}
+                autoHideDuration={5000}
+                onClose={this.props.handleSnackbarClose}
+              >
+                <SnackbarContent
+                  className={classes.snakbar}
+                  aria-describedby="client-snackbar"
+                  message={
+                    <span id="client-snackbar" className={classes.message}>
+                      <ErrorIcon className={classes.errorIcon} />
+                      Authentication failed
+                    </span>
+                  }
+                  action={[
+                    <IconButton
+                      key="close"
+                      aria-label="Close"
+                      color="inherit"
+                      className={classes.close}
+                      onClick={this.props.handleSnackbarClose}
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                  ]}
+                />
+              </Snackbar>
+            )}
+
+            {/* DEFAULT ACCOUNT ICON */}
+
             <AccountBoxIcon color="primary" className={classes.icon} />
+
+            {/* HEADING */}
 
             <Typography
               variant="title"
@@ -70,6 +149,8 @@ class SignIn extends Component {
             >
               SIGN IN
             </Typography>
+
+            {/* FORM */}
 
             <form
               className={classes.form}
@@ -82,15 +163,29 @@ class SignIn extends Component {
                 )
               }
             >
-              <TextField
-                label="Email"
-                name="emailInput"
-                value={this.props.email}
-                onChange={this.props.inputChanged}
-                margin="normal"
+              {/*  EMAIL INPUT  */}
+
+              <FormControl
+                error={this.props.errors.email}
+                aria-describedby="component-error-text"
                 fullWidth
+                className={classes.resize}
                 required
-              />
+              >
+                <InputLabel htmlFor="component-error">Email</InputLabel>
+                <Input
+                  id="component-error"
+                  name="emailInput"
+                  value={this.props.emailInput}
+                  onChange={this.props.inputChanged}
+                />
+                <FormHelperText id="component-error-text">
+                  {this.props.errors.email ? "Invalid email format." : null}
+                </FormHelperText>
+              </FormControl>
+
+              {/* PASSWORD INPUT */}
+
               <TextField
                 label="Password"
                 name="passwordInput"
@@ -102,7 +197,14 @@ class SignIn extends Component {
                 required
               />
 
+              {/* SIGN IN BUTTON */}
+
               <Button
+                disabled={
+                  this.props.errors === false ||
+                  this.props.emailInput === "" ||
+                  this.props.errors.email
+                }
                 type="submit"
                 variant="contained"
                 color="primary"
@@ -111,7 +213,13 @@ class SignIn extends Component {
                 Sign In
               </Button>
             </form>
-            <Link to="/signup" className={classes.link}>
+            <Link
+              to="/signup"
+              className={classes.link}
+              onClick={this.props.handleRouteChanged}
+            >
+              {/* CREAE ACCOUNT BUTTON */}
+
               <Button
                 variant="contained"
                 color="secondary"
@@ -130,23 +238,30 @@ class SignIn extends Component {
 const mapStateToProps = state => {
   return {
     emailInput: state.emailInput,
-    passwordInput: state.passwordInput
+    passwordInput: state.passwordInput,
+    errors: state.errors,
+    signInAuthFailed: state.signInAuthFailed
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     inputChanged: e => {
-      const action = {
+      dispatch({
         type: INPUT_CHANGED,
         name: e.target.name,
         value: e.target.value
-      };
-      dispatch(action);
+      });
     },
     handleSubmit: (e, _email, _password, _history) => {
       e.preventDefault();
       Api.signIn(dispatch, _email, _password, _history);
+    },
+    handleRouteChanged: e => {
+      dispatch({ type: ROUTE_CHANGED });
+    },
+    handleSnackbarClose: e => {
+      dispatch({ type: SNACKBAR_CLOSE });
     }
   };
 };
