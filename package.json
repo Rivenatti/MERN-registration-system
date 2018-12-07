@@ -1,6 +1,12 @@
 {
-  "name": "mern-registration-system",
+  "author": "Marcin Sulewski",
+  "license": "ISC",
+  "name": "registration-system",
   "version": "1.0.0",
+  "engines": {
+    "node": "8.11.3",
+    "npm": "5.6.0"
+  },
   "description": "## Get started",
   "main": "server.js",
   "dependencies": {
@@ -11,30 +17,20 @@
     "jsonwebtoken": "^8.4.0",
     "jwt-decode": "^2.2.0",
     "mongoose": "^5.3.14",
-    "morgan": "^1.9.1",
-    "npm": "^6.4.1",
-    "passport": "^0.4.0",
-    "passport-jwt": "^4.0.0"
+    "morgan": "^1.9.1"
   },
   "devDependencies": {
     "nodemon": "^1.18.7"
   },
   "scripts": {
-    "client-install": "npm install --prefix client",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"nodemon run server \" \"npm run client \""
+    "client-install": "npm install --prefix client",
+    "dev": "concurrently \"set NODE_ENV=development&& nodemon run server \" \"npm run client \"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Rivenatti/mern-registration-system.git"
-  },
-  "keywords": [],
-  "author": "Marcin Sulewski",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Rivenatti/mern-registration-system/issues"
-  },
-  "homepage": "https://github.com/Rivenatti/mern-registration-system#readme"
+  }
 }
