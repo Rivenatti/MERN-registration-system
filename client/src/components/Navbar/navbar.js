@@ -1,7 +1,6 @@
 // React
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { SIGNED_OUT } from "../../actions/actions";
 import { connect } from "react-redux";
 
 // Material UI
@@ -86,21 +85,17 @@ class Navbar extends Component {
                   onClose={this.handleClose}
                 >
                   {/* PROFILE LINK */}
-                  <MenuItem onClick={this.handleClose}>
-                    <Link to="/profile" className={classes.link}>
-                      Profile
-                    </Link>
-                  </MenuItem>
+                  <Link to="/profile" className={classes.link}>
+                    <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                  </Link>
                   {/* SIGN OUT LINK */}
-                  <MenuItem onClick={this.handleClose}>
-                    <Link
-                      to="/signout"
-                      className={classes.link}
-                      onClick={this.props.onSubmit}
-                    >
-                      Sign out
-                    </Link>
-                  </MenuItem>
+                  <Link
+                    to="/signout"
+                    className={classes.link}
+                    onClick={this.props.onSubmit}
+                  >
+                    <MenuItem onClick={this.handleClose}>Sign out</MenuItem>
+                  </Link>
                 </Menu>
               </div>
             )}
@@ -117,15 +112,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onSubmit: e => {
-      dispatch({ type: SIGNED_OUT });
-    }
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(Navbar));
+export default connect(mapStateToProps)(withStyles(styles)(Navbar));

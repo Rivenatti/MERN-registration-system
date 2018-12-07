@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import "./SignOut.scss";
+import { SIGNED_OUT } from "../../actions/actions";
+import { connect } from "react-redux";
+
+// SignOut component which after 5 seconds removes token from the browser and redirects user to the home page
 
 class SignOut extends Component {
   //------------ SET TIME HERE ------------
@@ -13,12 +16,12 @@ class SignOut extends Component {
     this.setState({ intervalId });
   };
 
-  countdown = () => this.setState({ counter: this.state.counter - 1 });
-
   componentWillUnmount = () => {
     localStorage.removeItem("token");
-    clearInterval(this.state.intervalId);
+    return this.props.onSignOut();
   };
+
+  countdown = () => this.setState({ counter: this.state.counter - 1 });
 
   render() {
     const { counter } = this.state;
@@ -38,11 +41,26 @@ class SignOut extends Component {
           <div className="dot dot1" />
           <div className="dot dot2" />
           <div className="dot dot3" />
-          {counter === 0 && <Redirect to="/" />}
+          {counter === 0 && this.props.history.push("/")}
         </div>
       </div>
     );
   }
 }
 
-export default SignOut;
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSignOut: () => {
+      dispatch({ type: SIGNED_OUT });
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignOut);

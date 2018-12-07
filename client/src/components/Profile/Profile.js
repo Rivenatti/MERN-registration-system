@@ -62,7 +62,6 @@ class Profile extends Component {
   componentWillMount = () => {
     // Decode user information
     const decoded = jwt_decode(localStorage.token);
-    console.log(decoded);
     const { userId, username, email, organization } = decoded;
     const created = decoded.created.split("T")[0];
 
@@ -76,7 +75,7 @@ class Profile extends Component {
   };
 
   // Delete account confirmation dialog
-  handleClick = () => {
+  handleDialogOpen = () => {
     this.setState({ dialogOpen: !this.state.dialogOpen });
   };
 
@@ -134,11 +133,11 @@ class Profile extends Component {
               variant="contained"
               color="secondary"
               className={classes.button}
-              onClick={this.handleClick}
+              onClick={this.handleDialogOpen}
             >
               <Dialog
                 open={this.state.dialogOpen}
-                onClose={this.handleClick}
+                onClose={this.handleDialogOpen}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
               >
@@ -165,7 +164,7 @@ class Profile extends Component {
 
                   {/* Disagree button */}
 
-                  <Button onClick={this.handleClick} color="primary">
+                  <Button onClick={this.handleDialogOpen} color="primary">
                     Disagree
                   </Button>
                 </DialogActions>

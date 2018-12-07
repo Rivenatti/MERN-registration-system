@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import setAuthorizationHeader from "../../utils/setAuthorizationHeader";
 
 // Material UI
 import { withStyles } from "@material-ui/core/styles";
@@ -49,6 +50,14 @@ const styles = {
 //---------------- Class
 
 class Landing extends Component {
+  componentWillMount = () => {
+    // On redirect, check if there is a token
+    if (localStorage.token) {
+      // Set authorization header
+      setAuthorizationHeader(localStorage.token);
+    }
+  };
+
   render() {
     const { classes } = this.props;
     return (
