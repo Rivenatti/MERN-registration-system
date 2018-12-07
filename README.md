@@ -2,14 +2,21 @@
 
 ## Get started
 
-- Install all React project dependencies
+- Install all Backend project dependencies
 
   > npm install
 
-- Start the development server with
-  > npm start
+- Install all Client project dependencies
 
-Server is running on port 5000,
+  > npm run client-install
+
+## Configuration
+
+Configure MongoDB URI in 'config/config.js',
+Configure secret key in 'config/config.js'
+
+- Start the development server and client at once with
+  > npm run dev
+
 Client is running on port 3000,
-Configure mongoDB URL in 'config/mongoDB.js',
-Configure secret key in 'config/secret.js'
+Server is running on port 5000,
