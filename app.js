@@ -28,9 +28,11 @@ app.use((req, res, next) => {
 //----- MongoDB connection
 const mongoose = require("mongoose");
 const MongoDB = require("./config/mongoDB");
+
 mongoose.set("useCreateIndex", true); // Fix DeprecationWarning
 mongoose.connect(
-  MongoDB.URL,
+  // connect from local config file or hosting platform
+  MongoDB,
   { useNewUrlParser: true },
   () => console.log("MongoDB connected...")
 );
@@ -63,5 +65,17 @@ app.use((error, req, res) => {
   res.status(error.status || 500);
   res.json({ error: { message: error.message } });
 });
+
+//----- Heroku server
+if (process.env.NODE_ENV !== "development") {
+  const path = require("path");
+
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    console.log(__dirname);
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 module.exports = app;
