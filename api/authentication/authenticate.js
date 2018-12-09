@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
 
   // Decode token and verify
   try {
-    const decodedToken = jwt.verify(token, secret.KEY);
+    const decodedToken = jwt.verify(token, secret);
     req.useData = decodedToken;
     next();
   } catch (error) {
