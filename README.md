@@ -5,7 +5,7 @@ This full-stack web application was created with use of technologies listed belo
 - BACKEND:
 Node,js, Express.js, MongoDB, JSON Web Token
 
--FRONTEND:
+- FRONTEND:
 React, Redux, Material-UI
 
 Application is a fully working registration system which allows user to: sign up on the page, sign in on the own account, display information about his/her account and delete the account. For security and user authentication I have used JSON Web Token which is stored in the browser's localstorage.
