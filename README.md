@@ -3,7 +3,7 @@
 This full-stack web application was created with use of technologies listed below:
 
 - BACKEND:
-Node,js, Express.js, MongoDB, JSON Web Token
+Node.js, Express.js, MongoDB, JSON Web Token
 
 - FRONTEND:
 React, Redux, Material-UI
