@@ -40,7 +40,7 @@ userLogin.post("/signin", (req, res, next) => {
                 email: user.email,
                 created: user.created
               },
-              secret.KEY,
+              secret,
               {
                 expiresIn: "1h"
               }
