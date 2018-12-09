@@ -1,14 +1,10 @@
-#### To check live version click: [here](https://msulewski.pl) (COMMING SOON)
+#### To check live version click: [here](https://ms-mern-registration-system.herokuapp.com/)
 
 ## Get started
 
-- Install all Backend project dependencies
+- Install all project dependencies
 
-  > npm install
-
-- Install all Client project dependencies
-
-  > npm run client-install
+  > npm run install-all
 
 ## Configuration
 
@@ -16,6 +12,7 @@ Configure MongoDB URI in 'config/config.js',
 Configure secret key in 'config/config.js'
 
 - Start the development server and client at once with
+
   > npm run dev
 
 Client is running on port 3000,
