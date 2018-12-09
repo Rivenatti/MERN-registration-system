@@ -1,6 +1,10 @@
 //----- App initialization
 const express = require("express");
 const app = express();
+const path = require("path");
+
+//----- Serve static files from the React App
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 //----- Morgan HTTP request logger middleware
 const morgan = require("morgan");
@@ -68,12 +72,9 @@ app.use((error, req, res) => {
 
 //----- Heroku server
 if (process.env.NODE_ENV !== "development") {
-  const path = require("path");
 
-  app.use(express.static(path.join(__dirname, "client", "build")));
-
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+  app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
   });
 }
 
