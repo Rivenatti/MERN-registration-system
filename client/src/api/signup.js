@@ -15,7 +15,6 @@ const signUp = (dispatch, username, organization, email, password, history) => {
       history.push("/signin");
     })
     .catch(error => {
-      console.log(error.response.data);
       // If email exists in the db
       if (error.response.data.emailExists) {
         dispatch({

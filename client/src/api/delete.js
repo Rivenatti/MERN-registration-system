@@ -2,7 +2,6 @@ import axios from "axios";
 
 // Delete user api request
 const deleteUser = (dispatch, userId, history) => {
-  console.log(userId);
   axios
     .delete(`/delete/${userId}`)
     .then(res => {
