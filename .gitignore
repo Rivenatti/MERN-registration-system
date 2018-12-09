@@ -11,6 +11,9 @@ package-lock.js
 # testing
 /coverage
 
+# config files
+/config/config.js
+
 # production
 /build
 
