@@ -1,4 +1,4 @@
-# MERN Registstration System
+# MERN Registration System
 
 This full-stack web application was created with use of technologies listed below:
 
@@ -9,10 +9,6 @@ Node.js, Express.js, MongoDB, JSON Web Token
 React, Redux, Material-UI
 
 Application is a fully working registration system which allows user to: sign up on the page, sign in on the own account, display information about his/her account and delete the account. For security and user authentication I have used JSON Web Token which is stored in the browser's localstorage.
-
-#### To check live version click: [here](https://ms-mern-registration-system.herokuapp.com/)
-
-⚠️ You can only check live version by clicking on this link. React router doesn't work on Heroku and forced URL written by hand will return 404 page.
 
 ## Get started
 
